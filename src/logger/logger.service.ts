@@ -1,4 +1,7 @@
 import { ILogObj, ISettingsParam, Logger } from 'tslog'
+import { ILogger } from './logger.inteface';
+import { injectable } from 'inversify'
+import 'reflect-metadata'
 
 const loggerSettings = {
     displayInstanceName: false,
@@ -7,8 +10,9 @@ const loggerSettings = {
     displayFunctionName: false
 }
 
-export class LoggerService {
-    private logger: Logger<ILogObj>;
+@injectable()
+export class LoggerService implements ILogger {
+    public logger: Logger<ILogObj>;
  
     constructor() {
         this.logger = new Logger(loggerSettings as ISettingsParam<ILogObj>)
